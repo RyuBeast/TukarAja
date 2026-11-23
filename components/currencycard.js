@@ -15,8 +15,8 @@ export default function CurrencyCard({ item, isFavorite, onToggleFavorite, onPre
 
       <View style={styles.right}>
         <View style={styles.rates}>
-          <Text style={styles.rateLabel}>Beli: <Text style={styles.rateValue}>Rp {item.buy.toLocaleString('id-ID')}</Text></Text>
-          <Text style={styles.rateLabel}>Jual: <Text style={styles.rateValue}>Rp {item.sell.toLocaleString('id-ID')}</Text></Text>
+          <Text style={styles.rateLabel}>Beli : <Text style={styles.rateValue}>Rp {item.buy.toLocaleString('id-ID')}</Text></Text>
+          <Text style={styles.rateLabel}>Jual : <Text style={styles.rateValue}>Rp {item.sell.toLocaleString('id-ID')}</Text></Text>
         </View>
         <TouchableOpacity onPress={onToggleFavorite} style={styles.starBtn}>
           <Ionicons
