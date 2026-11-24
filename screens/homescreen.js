@@ -10,91 +10,59 @@ export default function HomeScreen({ navigation }) {
   const [favorites, setFavorites] = useState(['1', '2']);
 
   const toggleFavorite = (id) => {
-    setFavorites((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
-    );
+    setFavorites((prev) => (prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]));
   };
 
-  const filteredCurrencies = CURRENCIES.filter((item) => {
-    const matchSearch =
-      item.code.toLowerCase().includes(search.toLowerCase()) ||
-      item.name.toLowerCase().includes(search.toLowerCase());
-    const matchTab = filter === 'ALL' || favorites.includes(item.id);
-    return matchSearch && matchTab;
+  const filteredData = CURRENCIES.filter((item) => {
+    const matchText = item.code.toLowerCase().includes(search.toLowerCase()) || item.name.toLowerCase().includes(search.toLowerCase());
+    return matchText && (filter === 'ALL' || favorites.includes(item.id));
   });
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.brand}>TukarAja</Text>
-        <Text style={styles.subtitle}>Kurs Valuta Asing Hari Ini • Update Real-Time</Text>
-      </View>
-
-      <View style={styles.content}>
+        <Text style={styles.title}>TukarAja</Text>
         <TextInput
-          style={styles.searchInput}
-          placeholder="Cari mata uang (USD, JPY, EUR)..."
-          placeholderTextColor="#94A3B8"
+          style={styles.search}
+          placeholder="Cari mata uang..."
           value={search}
           onChangeText={setSearch}
         />
-
-        <View style={styles.tabRow}>
-          <TouchableOpacity
-            style={[styles.tabBtn, filter === 'ALL' && styles.tabBtnActive]}
-            onPress={() => setFilter('ALL')}
-          >
-            <Text style={[styles.tabText, filter === 'ALL' && styles.tabTextActive]}>
-              Semua Kurs
-            </Text>
+        <View style={styles.tabs}>
+          <TouchableOpacity style={[styles.tab, filter === 'ALL' && styles.tabActive]} onPress={() => setFilter('ALL')}>
+            <Text style={[styles.tabText, filter === 'ALL' && styles.tabTextActive]}>Semua Kurs</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.tabBtn, filter === 'FAV' && styles.tabBtnActive]}
-            onPress={() => setFilter('FAV')}
-          >
-            <Text style={[styles.tabText, filter === 'FAV' && styles.tabTextActive]}>
-              Favorit ({favorites.length})
-            </Text>
+          <TouchableOpacity style={[styles.tab, filter === 'FAV' && styles.tabActive]} onPress={() => setFilter('FAV')}>
+            <Text style={[styles.tabText, filter === 'FAV' && styles.tabTextActive]}>Favorit ({favorites.length})</Text>
           </TouchableOpacity>
         </View>
-
-        <FlatList
-          data={filteredCurrencies}
-          keyExtractor={(item) => item.id}
-          showsVerticalScrollIndicator={false}
-          renderItem={({ item }) => (
-            <CurrencyCard
-              item={item}
-              isFavorite={favorites.includes(item.id)}
-              onToggleFavorite={() => toggleFavorite(item.id)}
-              onPress={() => navigation.navigate('Detail', { item })}
-            />
-          )}
-        />
       </View>
+
+      <FlatList
+        data={filteredData}
+        keyExtractor={(item) => item.id}
+        contentContainerStyle={{ padding: 16 }}
+        renderItem={({ item }) => (
+          <CurrencyCard
+            item={item}
+            isFavorite={favorites.includes(item.id)}
+            onToggleFavorite={() => toggleFavorite(item.id)}
+            onPress={() => navigation.navigate('Detail', { item })}
+          />
+        )}
+      />
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#F8FAFC' },
-  header: { backgroundColor: '#0F172A', padding: 20, borderBottomLeftRadius: 20, borderBottomRightRadius: 20 },
-  brand: { fontSize: 24, fontWeight: 'bold', color: '#FFFFFF' },
-  subtitle: { fontSize: 13, color: '#94A3B8', marginTop: 4 },
-  content: { flex: 1, padding: 16 },
-  searchInput: {
-    backgroundColor: '#FFFFFF',
-    paddingHorizontal: 14,
-    paddingVertical: 12,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: '#E2E8F0',
-    color: '#1E293B',
-    marginBottom: 12,
-  },
-  tabRow: { flexDirection: 'row', gap: 10, marginBottom: 14 },
-  tabBtn: { paddingVertical: 8, paddingHorizontal: 16, borderRadius: 20, backgroundColor: '#E2E8F0' },
-  tabBtnActive: { backgroundColor: '#059669' },
-  tabText: { fontSize: 13, fontWeight: '600', color: '#475569' },
-  tabTextActive: { color: '#FFFFFF' },
+  header: { backgroundColor: '#FFF', paddingHorizontal: 16, paddingTop: 12, borderBottomWidth: 1, borderColor: '#E2E8F0' },
+  title: { fontSize: 22, fontWeight: 'bold', color: '#0F172A', marginBottom: 10 },
+  search: { backgroundColor: '#F1F5F9', borderRadius: 10, paddingHorizontal: 12, paddingVertical: 8, marginBottom: 10 },
+  tabs: { flexDirection: 'row', gap: 20 },
+  tab: { paddingVertical: 10, borderBottomWidth: 2, borderBottomColor: 'transparent' },
+  tabActive: { borderBottomColor: '#059669' },
+  tabText: { fontWeight: '600', color: '#94A3B8' },
+  tabTextActive: { color: '#0F172A' },
 });
