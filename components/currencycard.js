@@ -3,8 +3,10 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 export default function CurrencyCard({ item, isFavorite, onToggleFavorite, onPress }) {
+  const isUp = !item.change.startsWith('-');
+
   return (
-    <TouchableOpacity style={styles.card} onPress={onPress} activeOpacity={0.8}>
+    <TouchableOpacity style={styles.row} onPress={onPress}>
       <View style={styles.left}>
         <Text style={styles.flag}>{item.flag}</Text>
         <View>
@@ -14,16 +16,14 @@ export default function CurrencyCard({ item, isFavorite, onToggleFavorite, onPre
       </View>
 
       <View style={styles.right}>
-        <View style={styles.rates}>
-          <Text style={styles.rateLabel}>Beli : <Text style={styles.rateValue}>Rp {item.buy.toLocaleString('id-ID')}</Text></Text>
-          <Text style={styles.rateLabel}>Jual : <Text style={styles.rateValue}>Rp {item.sell.toLocaleString('id-ID')}</Text></Text>
+        <View style={{ alignItems: 'flex-end' }}>
+          <Text style={styles.price}>Rp {item.sell.toLocaleString('id-ID')}</Text>
+          <Text style={[styles.change, { color: isUp ? '#059669' : '#EF4444' }]}>
+            {isUp ? '↗' : '↘'} {item.change}
+          </Text>
         </View>
-        <TouchableOpacity onPress={onToggleFavorite} style={styles.starBtn}>
-          <Ionicons
-            name={isFavorite ? 'star' : 'star-outline'}
-            size={22}
-            color={isFavorite ? '#F59E0B' : '#94A3B8'}
-          />
+        <TouchableOpacity onPress={onToggleFavorite}>
+          <Ionicons name={isFavorite ? 'star' : 'star-outline'} size={20} color={isFavorite ? '#F59E0B' : '#CBD5E1'} />
         </TouchableOpacity>
       </View>
     </TouchableOpacity>
@@ -31,23 +31,12 @@ export default function CurrencyCard({ item, isFavorite, onToggleFavorite, onPre
 }
 
 const styles = StyleSheet.create({
-  card: {
-    backgroundColor: '#FFFFFF',
-    padding: 14,
-    borderRadius: 14,
-    marginBottom: 10,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    elevation: 2,
-  },
-  left: { flexDirection: 'row', alignItems: 'center', gap: 12 },
-  flag: { fontSize: 28 },
-  code: { fontSize: 16, fontWeight: 'bold', color: '#1E293B' },
+  row: { backgroundColor: '#FFF', padding: 14, borderRadius: 12, marginBottom: 8, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
+  left: { flexDirection: 'row', alignItems: 'center', gap: 10 },
+  flag: { fontSize: 24 },
+  code: { fontSize: 15, fontWeight: 'bold', color: '#0F172A' },
   name: { fontSize: 12, color: '#64748B' },
   right: { flexDirection: 'row', alignItems: 'center', gap: 10 },
-  rates: { alignItems: 'flex-end' },
-  rateLabel: { fontSize: 12, color: '#64748B' },
-  rateValue: { fontWeight: 'bold', color: '#059669' },
-  starBtn: { padding: 4 },
+  price: { fontSize: 15, fontWeight: 'bold', color: '#0F172A' },
+  change: { fontSize: 12, fontWeight: '600', marginTop: 2 },
 });
