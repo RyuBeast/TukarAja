@@ -1,14 +1,14 @@
-# TukarAja — Aplikasi Informasi Kurs & Booking Penukaran Valas
-
-**TukarAja** adalah prototipe aplikasi mobile lintas platform (*cross-platform*) berbasis **React Native (Expo)** yang dirancang untuk memudahkan pengguna memantau kurs valuta asing (Valas), menghitung estimasi penukaran secara *real-time*, serta melakukan reservasi penguncian kurs (*lock rate*) sebelum bertransaksi tunai di gerai fisik.
-
----
-
 ## Anggota Kelompok
 
 |      Nama Lengkap      |    NIM    |                                            Pembagian Tugas                                              |
-| I Kadek Agus Wirawan   | 240040083 | Kalkulator Konversi (`Calculator`), Detail Valas (`Detail`), & Dokumentasi                              |
 | Pande Gede Nadi Atmaja | 240040081 | Setup Proyek, Navigasi, Halaman Kurs (`Home`), Struk Booking (`Receipt`), & Profil/Cabang (`Profile`)   |
+| I Kadek Agus Wirawan   | 240040083 | Kalkulator Konversi (`Calculator`), Detail Valas (`Detail`), & Dokumentasi                              |
+
+---
+
+# TukarAja — Aplikasi Informasi Kurs & Booking Penukaran Valas
+
+**TukarAja** adalah prototipe aplikasi mobile cross-platform berbasis **React Native (Expo)** yang dirancang untuk memudahkan pengguna memantau kurs valuta asing (Valas), menghitung estimasi penukaran secara *real-time*, serta melakukan reservasi penguncian kurs (*lock rate*) sebelum bertransaksi tunai di gerai fisik.
 
 ---
 
@@ -35,7 +35,7 @@ Aplikasi ini mengombinasikan **Bottom Tab Navigation** untuk menu utama dan **St
 ## Struktur Folder Proyek
 
 TukarAja
-├── assets/                  # Aset statis (ikon & splash screen aplikasi)
+├── assets/                  
 ├── components/
 │   └── currencycard.js      # Komponen kartu kurs reusable berbasis Props
 ├── data/
@@ -49,6 +49,11 @@ TukarAja
 │   ├── receiptscreen.js     # Halaman struk bukti booking tukar
 │   └── profilescreen.js     # Halaman profil pengguna & lokasi gerai
 ├── App.js                   # Entry point utama aplikasi
-├── app.json                 # Konfigurasi proyek Expo
-├── package.json             # Daftar dependensi dan skrip operasional
+├── app.json                 
+├── package.json             
 └── README.md                # Dokumentasi proyek
+
+## Referensi Desain Antarmuka (UI)
+
+- **Katalog Kurs & Kalkulator :** Mengadaptasi pola tampilan daftar aset dan kartu konversi dari aplikasi **Floq**.
+- **Struk Booking :** Mengadaptasi tata letak tiket reservasi digital (*E-Ticket*) dari referensi desain **Dribbble**.

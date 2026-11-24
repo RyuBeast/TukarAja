@@ -6,7 +6,7 @@ import { CURRENCIES } from '../data/currencies';
 export default function CalculatorScreen({ route, navigation }) {
   const [mode, setMode] = useState('BUY');
   const [selectedCode, setSelectedCode] = useState('USD');
-  const [amount, setAmount] = useState('100');
+  const [amount, setAmount] = useState('0');
 
   useEffect(() => {
     if (route.params?.selectedCurrency) setSelectedCode(route.params.selectedCurrency.code);
@@ -77,7 +77,7 @@ export default function CalculatorScreen({ route, navigation }) {
           </View>
 
           <View style={styles.estRow}>
-            <Text style={styles.subLabel}>Est. Total Rupiah:</Text>
+            <Text style={styles.subLabel}>Est. Total Rupiah :</Text>
             <Text style={styles.totalText}>Rp {totalIdr.toLocaleString('id-ID')}</Text>
           </View>
         </View>
